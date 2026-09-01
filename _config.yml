@@ -1,0 +1,109 @@
+# Site settings
+# These are used to personalize your site. You access them via {{ site.title }}, 
+# {{ site.email }} and so on. You can create any custom variable you like. They
+# will be accessible in the templates via {{ site.myvariable }}.
+
+title: Appamini
+description: >-
+  Appamini makes educational apps for curious kids.
+
+url: https://appamini.com
+email: info@appamini.com
+
+is_app: 1
+
+copyright_year: 2012-2026
+copyright_owner: Appamini
+copyright_url: https://appamini.com
+
+assets: /assets/
+header_image: /assets/icon/icon-header.png
+header_image_type: icon
+fonts: 
+  - Caveat:wght@400..700
+
+urls:
+  email:  mailto:info@wally.app
+
+  blog:       /blog
+  rss:        /feed.xml
+  privacy:    /privacy
+  
+  appstore:     https://itunes.apple.com/app/appamini-abc/id581402736
+  appstore-abc: https://itunes.apple.com/app/appamini-abc/id581402736
+  appstore-123: https://itunes.apple.com/app/appamini-123/id944820281
+
+header:
+  logo: /assets/logo/header.png
+  pages:
+    - index.html
+    - pages/blog.md
+    - pages/download.md
+
+footer:
+  sections:
+    - title: Site
+      links:
+        - Home | /
+        - Blog | /blog
+        - Downloads | /download
+        - Contact | /contact
+    - title: Apps
+      links:
+        - Appamini ABC | https://itunes.apple.com/app/appamini-abc/id581402736
+        - Appamini 123 | https://itunes.apple.com/app/appamini-123/id581402736
+        - Privacy Policy | /privacy
+    - title: News & Press
+      links:
+        - Blog | /blog
+        - RSS | /feed.xml
+        - Press | /press
+    - title: Kankoda
+      links:
+        - Website | https://kankoda.com
+        - Apps | https://kankoda.com/apps
+
+collections_dir: collections
+
+collections:
+  posts:
+    output: true
+    permalink: /blog/:categories/:year/:month/:day/:title
+
+baseurl: ""
+theme: minima
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-redirect-from
+
+defaults:
+  -
+    scope:
+      type: "pages"
+    values:
+      layout: "page"
+      image: /assets/headers/website.jpg
+  -
+    scope:
+      path: "pages/blog.md"
+    values:
+      image: /assets/headers/blog.jpg
+  -
+    scope:
+      type: "posts"
+    values:
+      author: "danielsaidi"
+      layout: "post"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

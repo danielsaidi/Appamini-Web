@@ -1,0 +1,204 @@
+// A reusable two-part layout: a block of content beside an image on wider
+// screens, stacked on smaller ones. The first direct `<div>` is the content,
+// a sibling `<img>` is the media. Built around the image width (a percentage
+// of the row) rather than a column grid, so it composes cleanly anywhere —
+// just `<div class="split-container">…</div>`.
+.split-container {
+  // Width the image takes when side-by-side, and its hard cap.
+  --split-gap: clamp(2rem, 5vw, 4rem);
+  --split-image-width: 30%;
+  --split-image-max: 360px;
+  // Vertical spacing between the text, the image and the buttons when stacked.
+  --split-stack-gap: clamp(2rem, 4vw, 2.75rem);
+
+  // Stacked, the container is a grid so the actions can be lifted out of the
+  // content block and placed after the image (see `.split-actions` below).
+  // Side-by-side it becomes a flex row again.
+  display: grid;
+  justify-items: center;
+  // Vertical spacing between content and media when stacked.
+  gap: var(--split-stack-gap);
+
+  // Separation from whatever precedes the item — the intro copy and rule above
+  // the first one, or the previous item in a list. A top margin on every item
+  // (rather than `& + &`) means the first one is spaced from the section's own
+  // content too, instead of butting right up against it. Comfortably larger
+  // than the gaps inside an item, so each row reads as one group.
+  margin-top: clamp(4.5rem, 10vw, 7rem);
+
+  // A hero lays out its own children and centres them; the separation margin
+  // above is for items in a section flow, not for that.
+  .hero & {
+    margin-top: 0;
+  }
+
+  // Content stacks its children. Spacing comes from whatever the content div
+  // is (e.g. `.hero-content` inside a hero); a default keeps it sensible when
+  // used standalone.
+  > div:not(.split-actions) {
+    display: grid;
+    justify-items: center;
+    gap: var(--hero-content-gap, 1.75rem);
+    // A grid's default `min-width: auto` lets it grow past the line to fit its
+    // widest child (a long word, a wide image). Cap it at the line.
+    min-width: 0;
+    max-width: 100%;
+
+    // Paragraphs carry a bottom margin globally, which would stack on top of
+    // the container's gap and make the space above the image read wider than
+    // the matching one below it.
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // The call-to-action buttons. A flex row so they sit side by side and wrap
+  // onto a second line when there isn't room for both.
+  .split-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    max-width: 100%;
+  }
+
+  // Stacked, the source order (text, image, buttons) is already what we want:
+  // the buttons read better below the image than squeezed between it and the
+  // text, and `--split-stack-gap` spaces all three evenly.
+
+  // Small uppercase label above the heading.
+  .eyebrow {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--glass-blue-text);
+  }
+
+  // Pull the heading up tight under its eyebrow.
+  .eyebrow + h2 {
+    margin-top: calc(var(--hero-content-gap, 1.75rem) * -0.6);
+  }
+
+  // Stacked state: centered media. `flex: none` keeps the image from being
+  // shrunk along the column's main axis, which would squash it out of its
+  // natural aspect ratio. The width pair caps it on wide screens while still
+  // letting it scale down to fit narrow ones.
+  > img {
+    flex: none;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+
+  // Side-by-side: two columns — copy and buttons stacked in one, the image in
+  // the other, spanning both rows and vertically centred. A grid (rather than a
+  // flex row) is what lets the buttons sit under the copy while the image stays
+  // beside both. `.image-left` just swaps which column the image occupies.
+  @media (min-width: 801px) {
+    grid-template-columns: 1fr var(--split-image-width);
+    grid-template-rows: auto auto;
+    align-items: start;
+    justify-items: start;
+    column-gap: var(--split-gap);
+    row-gap: var(--hero-content-gap, 1.75rem);
+    text-align: left;
+
+    > div:not(.split-actions) {
+      grid-column: 1;
+      grid-row: 1;
+      justify-items: start;
+    }
+
+    .split-actions {
+      grid-column: 1;
+      grid-row: 2;
+      justify-content: start;
+    }
+
+    // Image on the right (default): spans both rows, centred against them, and
+    // capped so it never outgrows its column.
+    > img {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: center;
+      justify-self: end;
+      width: 100%;
+      max-width: var(--split-image-max);
+    }
+
+    // Mirror for image-left: image in the first column, text in the second.
+    &.image-left {
+      grid-template-columns: var(--split-image-width) 1fr;
+
+      > div:not(.split-actions),
+      .split-actions {
+        grid-column: 2;
+      }
+
+      > img {
+        grid-column: 1;
+        justify-self: start;
+      }
+    }
+  }
+}
+
+// A run of split-containers that auto-alternates the image side, so each row
+// zig-zags without per-item `image-left` classes. The first row is image-left;
+// every even row flips back to image-right. Add `image-right` to the list to
+// start on the right instead (the parity inverts). Uses `nth-of-type` so stray
+// non-`div` siblings (e.g. an `<a name>` anchor) don't throw off the count.
+.split-list {
+  @media (min-width: 801px) {
+    // Mirrored row: image in the first column, copy and buttons in the second.
+    @mixin mirrored {
+      grid-template-columns: var(--split-image-width) 1fr;
+
+      > div:not(.split-actions),
+      .split-actions {
+        grid-column: 2;
+      }
+
+      > img {
+        grid-column: 1;
+        justify-self: start;
+      }
+    }
+
+    // Default row: image back on the right.
+    @mixin image-right {
+      grid-template-columns: 1fr var(--split-image-width);
+
+      > div:not(.split-actions),
+      .split-actions {
+        grid-column: 1;
+      }
+
+      > img {
+        grid-column: 2;
+        justify-self: end;
+      }
+    }
+
+    // Odd rows (1st, 3rd, …) mirror to image-left.
+    > .split-container:nth-of-type(odd) {
+      @include mirrored;
+    }
+
+    // Even rows stay image-right (the container default), so nothing needed.
+
+    // Start on the right instead: flip which parity gets mirrored.
+    &.image-right > .split-container {
+      &:nth-of-type(odd) {
+        @include image-right;
+      }
+
+      &:nth-of-type(even) {
+        @include mirrored;
+      }
+    }
+  }
+}

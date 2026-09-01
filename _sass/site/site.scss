@@ -1,0 +1,50 @@
+// Site theme
+
+h1, h2, h3 {
+  font-family: "Caveat";
+}
+
+// Cloud texture, anchored to the top of every page.
+//
+// Painted on .page-shell rather than on body: body defaults to the `glow`
+// class (see _layouts/plain.html), whose ::before and ::after are both taken
+// by the glow gradients, and whose near-opaque background would cover a plain
+// body background-image anyway. .page-shell wraps the header and main content
+// on every page and is otherwise unstyled.
+//
+// Absolute, not fixed, so the clouds scroll away with the page.
+.page-shell {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    // Above section backgrounds — the home page hero is a `section.glow`,
+    // which paints a near-opaque gradient over the full viewport and would
+    // otherwise hide the clouds entirely.
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("/assets/bg/clouds.png");
+    background-repeat: repeat-x;
+    background-position: top center;
+
+    @media (max-width: 700px) {
+      height: 80px;
+      background-image: url("/assets/bg/clouds-thin.png");
+    }
+  }
+}
+
+// Keep page content above the cloud layer. Sections that paint a background
+// (`.glow`, the color classes) set `isolation: isolate`, so their own children
+// are unaffected by this — it only lifts the section itself back above the
+// clouds' z-index.
+.page-shell > main,
+.page-shell > header[role="banner"] {
+  position: relative;
+  z-index: 2;
+}
