@@ -1,0 +1,31 @@
+- name: Appamini ABC
+  icon: /assets/icons/appamini-abc.png
+  image: /assets/screenshots/appamini-abc.jpg
+  subtitle: Alphabet Games for Kids
+  section-color: green
+  text: Visit the library and read a book, solve an alphabet puzzle at home, or practice the letter sounds at school. Appamini ABC features three mini-games filled with fun alphabet learning.
+  url-appstore: https://itunes.apple.com/app/appamini-abc/id581402736
+  languages:
+    - English
+    - Swedish
+    - Italian
+  flags:
+    - us
+    - se
+    - it
+
+- name: Appamini 123
+  icon: /assets/icons/appamini-123.png
+  image: /assets/screenshots/appamini-123.jpg
+  subtitle: Number Games for Kids
+  section-color: blue
+  text: Visit the lighthouse and read a book, solve a pirate puzzle or take in panorama views as you count rooftops. Appamini 123 features three mini-games filled with fun number learning.
+  url-appstore: https://itunes.apple.com/app/appamini-123/id944820281
+  languages:
+    - English
+    - Swedish
+    - Italian
+  flags:
+    - us
+    - se
+    - it

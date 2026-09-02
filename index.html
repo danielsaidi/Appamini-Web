@@ -1,0 +1,44 @@
+---
+title: Home
+layout: plain
+
+page-class: "home"
+image: /assets/headers/website.jpg
+
+description: Appamini makes educational apps for curious kids. Explore our worlds on iPhone, iPad, Mac, and Vision Pro.
+---
+
+<section class="hero glow">
+  <img src="/assets/avatar.png" class="app-icon" />
+  <h1>Welcome to Appamini World</h1>
+  <p>{{ page.description }}</p>
+  <div>
+    <a href="#content" class="cta secondary">Learn More</a>
+    <a href="{{site.urls.appstore}}" class="cta">App Store</a>
+  </div>
+</section>
+
+<a name="content"></a>
+
+{% for app in site.data.apps %}
+<section class="{{app.section-color}} showcase">
+  <article class="wrapper wide">
+      {% include kankoda/apps/app-header title=app.name icon=app.icon subtitle=app.subtitle %}
+      <img src="{{app.image}}" alt="{{app.name}} screenshot" class="rounded" />
+      <p>{{app.text}}</p>
+      <div>
+      <h3>Available in</h3>
+      <p>{{ app.name }} is available in {{ app.languages | join: ", " }}.</p>
+      <p>
+        {% for flag in app.flags %}
+          <img src="/assets/flags/{{flag}}.png" alt="{{ lang }}" class="flag" />
+        {% endfor %}
+      </p>
+      <br />
+      <h3>Download</h3>
+      <p>You can download {{ app.name }} from the App Store.</p>
+      {% include kankoda/buttons/appstore url=app.url-appstore color="black" %}
+      </div>
+  </article>
+</section>
+{% endfor %}

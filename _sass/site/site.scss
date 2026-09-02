@@ -4,6 +4,12 @@ h1, h2, h3 {
   font-family: "Caveat";
 }
 
+.flag {
+  border-radius: 10px;
+  height: 35px;
+  margin: 0 5px;
+}
+
 // Cloud texture, anchored to the top of every page.
 //
 // Painted on .page-shell rather than on body: body defaults to the `glow`
