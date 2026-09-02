@@ -1,0 +1,58 @@
+// App Header
+//
+// A left-aligned app icon beside a title and subtitle. The text alone sets the
+// row height; the icon is then a square matching that height exactly, so the
+// two line up regardless of type scale or how far the subtitle wraps.
+
+.app-header {
+  // Grid, not flex. The icon must derive its height from the row without
+  // contributing to it — an in-flow <img> feeds its intrinsic size back into
+  // the track and blows the row up to the source image's height. A
+  // `min-content` column plus an absolutely-positioned image breaks that
+  // cycle: the image is out of flow, so only the text sizes the row.
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  align-items: stretch;
+  gap: 1rem;
+  text-align: left;
+
+  .app-header-icon {
+    position: relative;
+    height: 100%;
+    // Square: the width follows from the row height.
+    aspect-ratio: 1;
+  }
+
+  .app-header-icon img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: var(--radius-screenshot);
+  }
+
+  .app-header-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .app-header-title {
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  .app-header-subtitle {
+    margin: 0.25em 0 0;
+    line-height: 1.3;
+    opacity: 0.75;
+  }
+
+  // No icon: let the text span the full width instead of leaving a gap.
+  .app-header-text:only-child {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,0 +1,16 @@
+{% assign app = include.app %}
+{% assign image = include.image | default: app.image | default: app.icon %}
+{% assign title = include.title | default: app.title | default: app.name %}
+{% assign subtitle = include.subtitle | default: app.subtitle | default: app.text %}
+
+<div class="app-header {{ include.class }}">
+  {% if image %}
+  <div class="app-header-icon">
+    <img src="{{ image }}" alt="{{ title }}" />
+  </div>
+  {% endif %}
+  <div class="app-header-text">
+    {% if title %}<h2 class="app-header-title">{{ title }}</h2>{% endif %}
+    {% if subtitle %}<p class="app-header-subtitle">{{ subtitle }}</p>{% endif %}
+  </div>
+</div>
