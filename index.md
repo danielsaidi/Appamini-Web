@@ -20,4 +20,10 @@ description: Appamini makes educational apps for curious kids. Explore our world
 
 <a name="content"></a>
 
-TBD
+<section class="white showcase">
+  <article class="wide wrapper" markdown="1">
+
+Visit the lighthouse and read a book, play with a pirate puzzle or take in a stunning panorama view as you count rooftops. Appamini 123 features three mini-games filled with fun number learning for curious kids.
+  </article>
+
+</section>
