@@ -12,11 +12,12 @@ img.medium {
   border-radius: 10px !important;
 }
 
+// TODO: Is this needed? Test on KeyboardKit website
 .page-content {
   > p,
   > div.images {
     img {
-      border-radius: var(--radius-glass-panel);
+      border-radius: var(--radius-image);
       box-shadow: var(--shadow-default);
     }
   }
@@ -41,7 +42,7 @@ img.medium {
   }
 }
 
-.page-content p img, div.images img, img.bordered {
+.page-content p img, .images img, img.bordered {
   border-radius: var(--radius-glass-panel);
   box-shadow: var(--shadow-default);
 }
