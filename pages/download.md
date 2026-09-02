@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Privacy Policy
-permalink: /privacy
+title: Download
+permalink: /download
 ---
 
 {% include kankoda/apps/privacy name=site.title url=site.url %}
