@@ -10,6 +10,15 @@ h1, h2, h3 {
   margin: 0 5px;
 }
 
+.hero {
+  h1 { line-height: 1em; }
+  --hero-content-gap: 3.5rem;
+
+  @media (max-width: 700px) {
+    --hero-content-gap: 2.5rem;
+  }
+}
+
 // Cloud texture, anchored to the top of every page.
 //
 // Painted on .page-shell rather than on body: body defaults to the `glow`

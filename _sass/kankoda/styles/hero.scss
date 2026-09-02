@@ -47,7 +47,6 @@
 
   h1 {
     font-size: clamp(2.9rem, 8vw, 5rem);
-    line-height: 1.08;
     margin: 0;
     // Long unbroken product names shouldn't push the hero wider than the screen.
     overflow-wrap: break-word;
