@@ -28,7 +28,7 @@ h1, h2, h3 {
     top: 0;
     left: 0;
     right: 0;
-    height: 300px;
+    height: 400px;
     pointer-events: none;
     background-image: url("/assets/bg/clouds.png");
     background-repeat: repeat-x;
@@ -48,11 +48,6 @@ h1, h2, h3 {
     // PNG — a baked alpha cutout gives a hard, scalloped edge along the cloud
     // outline, which this avoids entirely.
     mix-blend-mode: multiply;
-
-    // Fade the bottom out so the texture dissolves into the page instead of
-    // ending on a straight horizontal line.
-    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
-            mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
 
     @media (max-width: 700px) {
       height: 80px;
