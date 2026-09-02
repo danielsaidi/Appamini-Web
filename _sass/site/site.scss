@@ -29,6 +29,9 @@ h1, h2, h3 {
 //
 // Absolute, not fixed, so the clouds scroll away with the page.
 .page-shell {
+  --cloud-fade-start: 80px;
+  --cloud-fade-end: 130px;
+
   position: relative;
 
   &::before {
@@ -54,11 +57,21 @@ h1, h2, h3 {
     z-index: 3;
 
     // Blend the artwork's white into whatever is behind it. `multiply` maps
-    // white to a no-op and leaves the blues intact, so the opaque white base
-    // of clouds.png disappears into the page without needing a transparent
-    // PNG — a baked alpha cutout gives a hard, scalloped edge along the cloud
-    // outline, which this avoids entirely.
+    // white to a no-op and leaves the blues intact, while the mask fades out
+    // the baked pale base so one-column pages do not show it as a flat band.
     mix-blend-mode: multiply;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0,
+      black var(--cloud-fade-start),
+      transparent var(--cloud-fade-end)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      black 0,
+      black var(--cloud-fade-start),
+      transparent var(--cloud-fade-end)
+    );
   }
 }
 
@@ -67,14 +80,20 @@ h1, h2, h3 {
 // replaces the body class entirely rather than adding to it, so a page that
 // wants the glow background too must list it: `page-class: "glow tall-clouds"`.
 body.tall-clouds .page-shell::before {
+  --cloud-fade-start: 230px;
+  --cloud-fade-end: 350px;
+
   background-image: url("/assets/bg/clouds.png");
 }
 
 // Clear the thin cloud banner. Pages with the tall artwork are built around it
 // — the home page hero starts under the clouds on purpose — so only the thin
-// default needs its content pushed clear. Applied to <main> rather than to a
-// first heading, so it holds for any page regardless of what it opens with.
-body:not(.tall-clouds) .page-shell > main {
+// default needs its content pushed clear.
+//
+// A hero is exempt: it sets its own negative top margin to slide up under the
+// sticky header, and padding here cancels that, leaving the page taller than
+// the viewport and pushing the footer below the fold.
+body:not(.tall-clouds) .page-shell > main:not(:has(> .hero:first-child)) {
   padding-top: 50px;
 }
 

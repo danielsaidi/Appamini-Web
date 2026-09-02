@@ -2,6 +2,7 @@
 title: Download
 layout: plain
 permalink: /download
+page-class: "tall-clouds"
 
 description: Appamini can be downloaded for iPhone and iPad on the App Store.
 ---
