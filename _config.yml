@@ -9,6 +9,7 @@ description: >-
 
 url: https://appamini.com
 email: info@appamini.com
+support: support@appamini.com
 
 is_app: 1
 
@@ -23,15 +24,20 @@ fonts:
   - Caveat:wght@400..700
 
 urls:
-  email:  mailto:info@wally.app
+  email:  mailto:info@appamini.com
+  support:  mailto:support@appamini.com
 
   blog:       /blog
   rss:        /feed.xml
   privacy:    /privacy
+
+  press-material: /press/appamini-press-material.zip
   
   appstore:     https://itunes.apple.com/app/appamini-abc/id581402736
   appstore-abc: https://itunes.apple.com/app/appamini-abc/id581402736
   appstore-123: https://itunes.apple.com/app/appamini-123/id944820281
+  facebook:     https://www.facebook.com/appaminiworld
+  stockholm:    https://www.google.com/maps/place/Stockholm,+Sweden/@59.3262131,17.8172499,11z/data=!3m1!4b1!4m6!3m5!1s0x465f763119640bcb:0xa80d27d3679d7766!8m2!3d59.3293235!4d18.0685808!16zL20vMDZteHM
 
 header:
   logo: /assets/logo/header.png
@@ -45,9 +51,10 @@ footer:
     - title: Site
       links:
         - Home | /
+        - About | /about
         - Blog | /blog
-        - Downloads | /download
         - Contact | /contact
+        - Downloads | /download
     - title: Apps
       links:
         - Appamini ABC | https://itunes.apple.com/app/appamini-abc/id581402736
@@ -57,7 +64,7 @@ footer:
       links:
         - Blog | /blog
         - RSS | /feed.xml
-        - Press | /press
+        - Press | /contact
     - title: Kankoda
       links:
         - Website | https://kankoda.com
