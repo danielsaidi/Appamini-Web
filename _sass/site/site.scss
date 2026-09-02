@@ -23,14 +23,30 @@ h1, h2, h3 {
     left: 0;
     right: 0;
     height: 300px;
-    // Above section backgrounds — the home page hero is a `section.glow`,
-    // which paints a near-opaque gradient over the full viewport and would
-    // otherwise hide the clouds entirely.
-    z-index: 1;
     pointer-events: none;
     background-image: url("/assets/bg/clouds.png");
     background-repeat: repeat-x;
     background-position: top center;
+
+    // Above <main>, not just above the section backgrounds. Sections that
+    // paint a background (`.glow` and the color classes) set `isolation:
+    // isolate`, so raising the clouds above those sections individually is
+    // not possible from outside — the home page hero is a `section.glow`
+    // whose near-opaque gradient covers the whole viewport. Sitting above
+    // <main> clears it. The header opts back on top via its own z-index.
+    z-index: 3;
+
+    // Blend the artwork's white into whatever is behind it. `multiply` maps
+    // white to a no-op and leaves the blues intact, so the opaque white base
+    // of clouds.png disappears into the page without needing a transparent
+    // PNG — a baked alpha cutout gives a hard, scalloped edge along the cloud
+    // outline, which this avoids entirely.
+    mix-blend-mode: multiply;
+
+    // Fade the bottom out so the texture dissolves into the page instead of
+    // ending on a straight horizontal line.
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
 
     @media (max-width: 700px) {
       height: 80px;
@@ -39,12 +55,9 @@ h1, h2, h3 {
   }
 }
 
-// Keep page content above the cloud layer. Sections that paint a background
-// (`.glow`, the color classes) set `isolation: isolate`, so their own children
-// are unaffected by this — it only lifts the section itself back above the
-// clouds' z-index.
-.page-shell > main,
+// Keep the sticky header above the cloud layer. `position` is restated
+// because header[role="banner"] is sticky and must stay that way.
 .page-shell > header[role="banner"] {
-  position: relative;
-  z-index: 2;
+  position: sticky;
+  z-index: 1000;
 }
